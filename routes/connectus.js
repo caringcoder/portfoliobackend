@@ -20,5 +20,11 @@ router.post('/', async (req, res) => {
     }
 })
 
+router.get('/',async(req,res)=>{
+
+    const messages = await Message.find()
+    res.status(200).json(messages)
+})
+
 
 module.exports = router

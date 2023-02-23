@@ -1,24 +1,46 @@
 const express = require('express')
-const expressSession = require('express-session');
-const expressVisitorCounter = require('express-visitor-counter');
+const Visitor = require('../model/VisitorCount')
+const ip = require('ip')
 
 const router = express.Router();
 
-const { MongoClient } = require('mongodb');
+// router.get('/', async (req, res) => {
+//     const visitor = await Visitor.findOne({ name: "TotalVisitors" })
+//     if (visitor == null) {
+//      const beginCount = new Visitor({
+//         name : "TotalVisitior",
+//         visitorCount : 1
+//      })
+//      beginCount.save()
 
-(async () => {
-    const dbConnection = await MongoClient.connect(`mongodb+srv://Adityadev:${process.env.SECRET_PASS}@cluster0.75kbw6j.mongodb.net/Connect-Us?retryWrites=true&w=majority`, { useUnifiedTopology: true });
-    const counters = dbConnection.db().collection('counters');
+//      // Sending the count of visitor to the browser
+//      res.send(`<h2>Counter: `+1+'</h2>')
+//     }
+//     else {
+//         visitor.visitorCount += 1;
+//         // Saving to the database
+//         visitor.save()
 
-    router.use(expressSession({ secret: 'secret', resave: false, saveUninitialized: true }));
-    
-    router.use(expressVisitorCounter({ collection: counters }));
-
-    router.get('/', async (req, res, next) => res.json(await counters.find().toArray()));
-
-})();
-// router.use('/', (req, res) => {
-//     res.send("Visitor Route")
+//         // Sending the count of visitor to the browser
+//         res.send(`<h2>Counter: `+visitor.visitorCount+'</h2>')
+//     }
 // })
+
+router.get('/', async (req, res) => {
+
+    let uniqueIp = await Visitor.findOne({ visitorIp: ip.address() })
+    let currentIp = ip.address();
+
+    let visitors =  await Visitor.count('visitorIp');
+    console.log(visitors-1)
+
+    if (uniqueIp) {
+        const uniqueVisit = new Visitor({
+            visitorIp: currentIp
+        })
+        const saving = await uniqueVisit.save();
+        res.json(saving)
+    }
+})
 
 module.exports = router;

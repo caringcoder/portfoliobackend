@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
         visitorIp: currentIp
     })
     const saving = await uniqueVisit.save();
-    res.json(visitorList)
+    res.json(saving)
 
 })
 

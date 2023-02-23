@@ -28,19 +28,15 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
 
-    let uniqueIp = await Visitor.findOne({ visitorIp: ip.address() })
     let currentIp = ip.address();
-
     let visitors =  await Visitor.count('visitorIp');
     console.log(visitors-1)
-
-    if (uniqueIp) {
         const uniqueVisit = new Visitor({
             visitorIp: currentIp
         })
         const saving = await uniqueVisit.save();
         res.json(saving)
-    }
+    
 })
 
 module.exports = router;

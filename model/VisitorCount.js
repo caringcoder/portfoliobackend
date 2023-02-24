@@ -8,4 +8,4 @@ const visiterCounter = mongoose.Schema({
     
 })
 
-module.exports = mongoose.model('Visitor-Count', visiterCounter)
+module.exports = mongoose.model('VisitorsData', visiterCounter)

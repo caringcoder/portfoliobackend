@@ -12,9 +12,9 @@ router.get('/', async (req, res) => {
         visitorIp: req.ip
     })
     const saving = await uniqueVisit.save();
-    // res.json({uniqueVisit,visitorList})
-    res.json(uniqueVisit)
-
+    res.json({uniqueVisit,visitorList})
 })
+
+
 
 module.exports = router;

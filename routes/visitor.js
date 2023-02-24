@@ -6,13 +6,14 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
     let visitorList = await Visitor.find()
-    let currentIp = ip.address();
+    // let currentIp = ip.address();
 
     const uniqueVisit = new Visitor({
-        visitorIp: currentIp
+        visitorIp: req.ip
     })
     const saving = await uniqueVisit.save();
-    res.json({uniqueVisit,visitorList})
+    // res.json({uniqueVisit,visitorList})
+    res.json(uniqueVisit)
 
 })
 

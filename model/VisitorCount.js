@@ -1,11 +1,17 @@
 const mongoose = require('mongoose')
 
 const visiterCounter = mongoose.Schema({
-    visitorIp: {
-        type: String,
-        required : true
-    }
-    
+    name: {
+        type: String
+    },
+    totalVisits: {
+        type: Number
+    },
+
+    totalUniqueVisits: {
+        type: Number
+    },
+
 })
 
 module.exports = mongoose.model('VisitorsData', visiterCounter)

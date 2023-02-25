@@ -11,6 +11,9 @@ const visiterCounter = mongoose.Schema({
     totalUniqueVisits: {
         type: Number
     },
+    visitorIp :{
+        type : String
+    }
 
 })
 

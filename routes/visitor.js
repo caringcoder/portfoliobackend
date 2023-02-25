@@ -36,7 +36,7 @@ router.get('/', async (req, res) => {
         await visitorList.save();
         // console.log("Repeated User")
     }
-    res.status(200).json({currentIp : req.ip, visitorList})
+    res.status(200).json({currentIp : req.ip, visitorList, Visitor})
 })
 
 
